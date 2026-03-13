@@ -1,0 +1,261 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Open+Sans:wght@400;700&display=swap');
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    font-family: 'Open Sans', 'Lato', sans-serif;
+}
+
+body {
+    margin: 0;
+}
+
+h1,
+h2,
+h3 {
+    font-family: 'Lato', sans-serif;
+    font-weight: bold;
+}
+
+#main-navigation {
+    width: 100%;
+    height: 5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 10%;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+#main-navigation a {
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+    margin-left: 1rem;
+}
+
+#main-navigation a:hover,
+#main-navigation a:active {
+    color: #cf79f1;
+}
+
+#main-navigation h1 a:hover,
+#main-navigation h1 a:active {
+    color: white;
+}
+
+/* =====================================================
+   RESPONSIVE NAVIGATION (Only Additions)
+===================================================== */
+/* ======================================================
+   FINAL RESPONSIVE LAYER — Paste at bottom of app.css
+   Replaces any earlier responsive snippets you added.
+   Keeps all original CSS intact — only overrides inside
+   media queries.
+   ====================================================== */
+
+/* shared nav heights */
+:root {
+    --nav-height-desktop: 5rem;
+    /* matches your original */
+    --nav-height-tablet: 4.6rem;
+    --nav-height-mobile: 4.8rem;
+}
+
+/* ---------- TABLET (keep nav absolute so hero bg shows) ---------- */
+@media (max-width: 768px) {
+    #main-navigation {
+        position: absolute;
+        /* ensure it overlays hero sections */
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: var(--nav-height-tablet);
+        padding: 0 6%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        z-index: 60;
+        background-color: #390281;
+        /* explicit to avoid transparency flash */
+    }
+
+    #main-navigation h1 {
+        font-size: 1.1rem;
+        margin: 0;
+    }
+
+    #main-navigation nav {
+        display: flex;
+        gap: 0.6rem;
+        align-items: center;
+    }
+
+    #main-navigation a {
+        font-size: 0.98rem;
+        margin-left: 0.5rem;
+        padding: 0.25rem 0.4rem;
+    }
+
+    /* reduce hero/summary heights so nav doesn't overlap awkwardly */
+    #summary {
+        height: auto;
+        padding-top: calc(var(--nav-height-tablet) + 1rem);
+    }
+
+    #welcome {
+        padding-top: calc(var(--nav-height-tablet) + 1.2rem);
+    }
+
+    /* make stored-posts and comments fit tablet width */
+    main,
+    #stored-posts,
+    #comments,
+    #comment-form,
+    #latest-posts {
+        width: 95%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+
+/* ---------- MOBILE: fixed nav + push content down ---------- */
+@media (max-width: 576px) {
+
+    /* make nav fixed and full width so it always appears above hero */
+    #main-navigation {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: var(--nav-height-mobile);
+        z-index: 9999;
+        background-color: #390281;
+        /* ensure purple (no white bleed) */
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 0.3rem 0;
+    }
+
+    /* stack brand + links for easy tapping */
+    #main-navigation h1 {
+        margin: 0.15rem 0;
+        font-size: 1.0rem;
+    }
+
+    #main-navigation nav {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0;
+        padding: 0;
+        margin: 0;
+    }
+
+    #main-navigation a {
+        display: block;
+        width: 100%;
+        text-align: center;
+        padding: 0.45rem 0;
+        margin: 0;
+        font-size: 1rem;
+    }
+
+    /* PUSH CONTENT DOWN so fixed nav doesn't cover it.
+     We apply to the top-level sections you use as heroes/containers. */
+    body {
+        padding-top: calc(var(--nav-height-mobile) + 0.6rem);
+    }
+
+    /* Ensure top sections respect the new flow too (extra safety) */
+    #welcome,
+    #summary,
+    main,
+    #stored-posts,
+    #latest-posts {
+        margin-top: 0 !important;
+    }
+
+    /* tighten paddings and font sizes for small devices */
+    #summary h2,
+    #welcome h2,
+    #about h2 {
+        font-size: 2.2rem;
+        line-height: 1.05;
+    }
+
+    #summary article img,
+    #welcome img {
+        width: 7rem;
+        height: 7rem;
+    }
+
+    #summary {
+        padding: 1rem;
+        height: auto;
+    }
+
+    main,
+    #comment-form,
+    #comments,
+    #stored-posts,
+    #latest-posts {
+        width: 95%;
+        padding: 0.9rem;
+        margin: 1rem auto;
+    }
+
+    #read-later button {
+        width: 100%;
+        padding: 0.65rem 0.6rem;
+    }
+}
+
+/* ---------- Very small phones: tiny adjustments ---------- */
+@media (max-width: 360px) {
+    #main-navigation a {
+        font-size: 0.95rem;
+        padding: 0.35rem 0;
+    }
+
+    #main-navigation h1 {
+        font-size: 0.95rem;
+    }
+
+    #summary h2,
+    #welcome h2 {
+        font-size: 2rem;
+    }
+
+    #summary article img,
+    #welcome img {
+        width: 6.4rem;
+        height: 6.4rem;
+    }
+}
+
+/* ---------- Utility: prevent horizontal overflow from long content ---------- */
+html, body {
+    overflow-x: hidden;
+}
+/* MOBILE ONLY */
+@media(max-width:576px){
+
+  /* force body background behind nav */
+  body{
+    background-color:#390281;
+  }
+
+  /* push down content slightly so first section aligns */
+  header + * {
+    margin-top: 5.2rem !important;
+  }
+}
